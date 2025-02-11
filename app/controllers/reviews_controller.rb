@@ -47,6 +47,7 @@ class ReviewsController < ApplicationController
   end
 
   def reviews_params
-    params.require(:review).permit(:email, :description).merge(user_id: Current.user.id)
+    user = Current.user if authenticated?
+    params.require(:review).permit(:description).merge(user_id: user.id, email: user.email_address)
   end
 end
