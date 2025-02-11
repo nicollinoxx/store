@@ -2,10 +2,6 @@ class ReviewsController < ApplicationController
   include ProductScoped
   before_action :set_review, only: %i[ show edit update destroy ]
 
-  def index
-    @reviews = @product.reviews.all
-  end
-
   def show
   end
 
