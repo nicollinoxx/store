@@ -18,4 +18,9 @@
   </section>
 </section>
 
-<%= link_to 'review', reviews_path %>
+<% @reviews.each do |review| %>
+  <%= render 'reviews/review', review: review %>
+  <%= link_to 'review', product_review_path(@product, review) if review.user_id.equal?(Current.user.id) %>
+<% end %>
+
+<%= link_to 'New review', new_product_review_path(@product) if review_exists? %>

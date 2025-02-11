@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     @review = @product.reviews.build(reviews_params)
 
     if @review.save
-      redirect_to @review
+      redirect_to product_review_url(@product, @review)
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(reviews_params)
-      redirect_to @review
+      redirect_to product_review_url(@product, @review)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
 
-    redirect_to reviews_path
+    redirect_to product_url(@product)
   end
 
   private
@@ -47,6 +47,6 @@ class ReviewsController < ApplicationController
   end
 
   def reviews_params
-    params.require(:review).permit(:email, :description).merge(user_id: Current.user)
+    params.require(:review).permit(:email, :description).merge(user_id: Current.user.id)
   end
 end
