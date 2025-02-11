@@ -1,0 +1,10 @@
+<h1>Reviews</h1>
+
+<% @reviews.each do |review| %>
+  <div>
+    <%= render review %>
+  </div>
+  <%= link_to 'Review', review %>
+<% end %>
+
+<%= link_to 'New review', new_review_path %>

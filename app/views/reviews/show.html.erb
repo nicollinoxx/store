@@ -1,0 +1,6 @@
+<h1>Review</h1>
+
+<%= render 'review', review: @review %>
+
+<%= link_to 'Edit review', edit_review_path(@review) %> <br>
+<%= button_to 'Delete review', @review, method: :delete %>
