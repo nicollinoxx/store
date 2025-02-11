@@ -1,19 +1,20 @@
 class ReviewsController < ApplicationController
+  include ProductScoped
   before_action :set_review, only: %i[ show edit update destroy ]
 
   def index
-    @reviews = Review.all
+    @reviews = @product.reviews.all
   end
 
   def show
   end
 
   def new
-    @review = Review.new
+    @review = @product.reviews.build
   end
 
   def create
-    @review = Review.new(reviews_params)
+    @review = @product.reviews.build(reviews_params)
 
     if @review.save
       redirect_to @review
@@ -42,10 +43,10 @@ class ReviewsController < ApplicationController
   private
 
   def set_review
-    @review = Review.find(params[:id])
+    @review = @product.reviews.find(params[:id])
   end
 
   def reviews_params
-    params.expect(review: [ :email, :description ])
+    params.require(:review).permit(:email, :description).merge(user_id: Current.user)
   end
 end
