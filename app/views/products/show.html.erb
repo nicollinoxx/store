@@ -20,7 +20,7 @@
 
 <% @reviews.each do |review| %>
   <%= render 'reviews/review', review: review %>
-  <%= link_to 'review', product_review_path(@product, review) if review.user_id.equal?(Current.user.id) %>
+  <%= link_to 'review', product_review_path(@product, review) if is_owner_review?(review) %>
 <% end %>
 
 <%= link_to 'New review', new_product_review_path(@product) if review_exists? %>
